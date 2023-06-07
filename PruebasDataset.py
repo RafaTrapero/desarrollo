@@ -1,18 +1,15 @@
+import time
 import pandas as pd
 import os
-import numpy as np
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score
-from sklearn.pipeline import Pipeline
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
-from transformers import BertTokenizer, TFBertModel
-from keras.wrappers.scikit_learn import KerasClassifier
-from sklearn.feature_extraction.text import CountVectorizer
-import time
-from sklearn.neural_network import MLPClassifier
+from sklearn.linear_model import LogisticRegression
+from keras.models import Sequential
+from keras.layers.core import Dense
+
 
 inicio = time.time()
 
@@ -54,12 +51,9 @@ Y=df_global['veracity'] # declaramos la variable de estudio
 
 # aplicamos la tecnica de bolsa de palabras (Bag of Words) para procesar el texto de las columnas
 
-''' 
-vectorizer = CountVectorizer() # contamos la ocurrencia de cada termino en el texto y creamos una representacion vectorial en funcion al mismo
-X_text = vectorizer.fit_transform(df_global['title'] + ' ' + df_global['text'])
-'''
 
-tfidf = TfidfVectorizer(min_df=2, max_df=0.5, ngram_range=(1,2)) #min_df el numero minimo de documentos donde tienen que aparecer las palabras
+
+tfidf = TfidfVectorizer(min_df=2, max_df=0.5, ngram_range=(1,2)) #min_df el numero minimo de documentos donde tienen que aparecer las palabras // ngran_range=el numero de gramas (mono gramas y bigramas)
 
 X_text = tfidf.fit_transform(df_global['title'] + ' ' + df_global['text'])
 
@@ -72,7 +66,12 @@ X_train, X_test, y_train, y_test = train_test_split(X_text, Y, test_size=0.2, ra
 
 ## **** DEEP LEARNING
 
-# 1) CNN (Convolutional Neural Networks)
+# 1) RNN 
+
+
+# 2) CNN (Convolutional Neural Networks) 
+
+# 3) 
 
 
 ## *** MACHINE LEARNING ***
@@ -101,20 +100,47 @@ print("Precisión del modelo RF: ", accuracy)
 
 
 # 3) SVM
-svm_model = SVC(kernel='linear') # kernel define cómo se mapearán los datos a un espacio de características de mayor dimensionalidad
-svm_model.fit(X_train,y_train)
+# svm_model = SVC(kernel='linear') # kernel define cómo se mapearán los datos a un espacio de características de mayor dimensionalidad
+# svm_model.fit(X_train,y_train)
+
+# # evaluamos la prediccion del modelo
+# y_pred = svm_model.predict(X_test)
+# accuracy = accuracy_score(y_test, y_pred)
+# print("Precisión del modelo SVM: ", accuracy)
+
+# 3) Logistic Regression
+lr=LogisticRegression()
+lr.fit(X_train,y_train) 
 
 # evaluamos la prediccion del modelo
-y_pred = svm_model.predict(X_test)
+y_pred = lr.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
-print("Precisión del modelo SVM: ", accuracy)
+print("Precisión del modelo LR: ", accuracy)
 
-# 4) 
+# 4) Neural Network (no voy a usar sklearn ya que no se suele usar, uso KERAS)
+model = Sequential()
+model.add(Dense(16, input_dim=2, activation='relu'))
+model.add(Dense(1, activation='sigmoid'))
+
+# entrenamos la neurona
+model.compile(loss='mean_squared_error',
+              optimizer='adam',
+              metrics=['binary_accuracy'])
+
+
+model.fit(X_train, y_train, epochs=1000)
+
+# evaluamos la prediccion del modelo
+# Evaluar el modelo
+loss, accuracy = model.evaluate(X_train, y_train)
+print(f'Loss: {loss}, Accuracy: {accuracy}')
+
+
 
 
 ## VER TIEMPO DE EJECUCION
 fin = time.time()
-print("El tiempo de ejecución es:",fin-inicio)
+print("El tiempo de ejecución es:",fin-inicio) 
 
 
 
