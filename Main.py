@@ -8,6 +8,8 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.corpus import stopwords
 from sklearn.model_selection import train_test_split
 from machineLearning.LogisticRegression import logisticRegression
+from machineLearning.DecisionTree import decisionTree
+from machineLearning.RandomForest import randomForest
 
 ## PROCESAMIENTO DATASET   
 df_global = process_dataset()
@@ -104,7 +106,13 @@ X_train, X_test, y_train, y_test = train_test_split(X_text, Y, test_size=0.2, ra
 # MACHINE LEARNING
 
 # 1) Logistic Regression
-print("Precisión del modelo LR: ", logisticRegression(X_train,y_train,X_test,y_test))
+#print("Precisión del modelo LR: ", logisticRegression(X_train,y_train,X_test,y_test))
+
+# 2) Decision Tree
+#print("Precision del modelo DT: ",decisionTree(X_train,y_train,X_test,y_test))
+
+# 3) Random Forest
+print("Precision del modelo DT: ",randomForest(X_train,y_train,X_test,y_test))
 
 
 
