@@ -1,3 +1,5 @@
-# desarrollo
+# GUIA DE USUARIO 
 
-crear entorno con anaconda
+Para ejecutar el codigo hay que cambiar la ruta en la "ProcessDataset.py" por aquella donde tengas los archivos: Fake.csv y True.csv.
+Una vez hecho eso, ejecutar Main.py.
+

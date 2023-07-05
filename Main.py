@@ -10,6 +10,7 @@ from sklearn.model_selection import train_test_split
 from machineLearning.LogisticRegression import logisticRegression
 from machineLearning.DecisionTree import decisionTree
 from machineLearning.RandomForest import randomForest
+from machineLearning.NeuralNetwork import neuralNetwork
 
 ## PROCESAMIENTO DATASET   
 df_global = process_dataset()
@@ -112,9 +113,15 @@ X_train, X_test, y_train, y_test = train_test_split(X_text, Y, test_size=0.2, ra
 #print("Precision del modelo DT: ",decisionTree(X_train,y_train,X_test,y_test))
 
 # 3) Random Forest
-print("Precision del modelo DT: ",randomForest(X_train,y_train,X_test,y_test))
+#print("Precision del modelo DT: ",randomForest(X_train,y_train,X_test,y_test))
+
+# 4) Neural Network
+#print(X_train.shape[1]) ##vemos el valor para pasarlo a input_dim 
+print("Precision del modelo NN: ",neuralNetwork(X_train,y_train,X_test,y_test))
+#print(type(y_train))
 
 
 
 
 
+ 

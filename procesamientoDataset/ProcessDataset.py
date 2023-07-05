@@ -3,7 +3,7 @@ import pandas as pd
 
 
 def process_dataset():
-    os.chdir('D:/rafalete/TFG/datasets/Pruebas/Newsdataset/')
+    os.chdir('D:/rafalete/TFG/datasets/Pruebas/Newsdataset/') #cambiar por ruta donde tengas tus datasets
 
     df_fake = pd.read_csv('Fake.csv')
     df_true = pd.read_csv('True.csv')

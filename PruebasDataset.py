@@ -119,8 +119,8 @@ print("Precisión del modelo LR: ", accuracy)
 
 # 4) Neural Network (no voy a usar sklearn ya que no se suele usar, uso KERAS)
 model = Sequential()
-model.add(Dense(16, input_dim=2, activation='relu'))
-model.add(Dense(1, activation='sigmoid'))
+model.add(Dense(16, input_dim=2, activation='relu')) #agregamos la capa input
+model.add(Dense(1, activation='sigmoid')) # agregamos la capa output
 
 # entrenamos la neurona
 model.compile(loss='mean_squared_error',
